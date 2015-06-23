@@ -5,12 +5,8 @@ var noInterfaces = require('./lib/no-interfaces')
 
 module.exports = getExtension
 function getExtension (gl, ext) {
-  if (isGL2(gl)) {
-    if (promoted.indexOf(ext) >= 0) {
-      return generate(gl, ext)
-    } else {
-      return gl.getExtension(ext)
-    }
+  if (isGL2(gl) && promoted.indexOf(ext) >= 0) {
+    return generate(gl, ext)
   } else {
     return gl.getExtension(ext)
   }
@@ -29,13 +25,16 @@ function generate (gl, name) {
   // interface with some constants / functions
   var data = interfaces[name]
   if (!data) {
-    throw new Error('could not find data for core extension ' + name)
+    // found a "core" extension but no interfaces
+    // yet defined for it
+    throw new Error('found a "core" extension ' + name
+        + ' but no interface exists yet to wrap it')
   }
-  var ctor = data[0]
+  var Ctor = data[0]
   var constants = data[1]
   var funcs = data[2]
 
-  var obj = new ctor()
+  var obj = new Ctor()
   if (constants) {
     constants.forEach(function (k) {
       var constant = gl[trimEnd(k)]

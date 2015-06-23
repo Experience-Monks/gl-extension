@@ -2,35 +2,41 @@
 
 [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges)
 
-Returns a WebGL extension object for the given string, if it is supported. If the context [is using WebGL 2.0](https://www.npmjs.com/package/is-webgl2-context), core extensions are wrapped with dummy interfaces, so your code does not need to change.
+Grabs an extension from the specified WebGL context.
 
-See the [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/) for API details.
+If the context [is using WebGL 2.0](https://www.npmjs.com/package/is-webgl2-context), core functions and contexts are wrapped with dummy interfaces, so your code does not need to change.
 
 #### Example
 
 ```js
 var getExtension = require('gl-extension')
 
-// see if floats are supported
-var hasFloat = getExtension(gl, 'OES_texture_float')
-if (hasFloat) {
-  console.log("Float textures supported")
-}
-
-// vertex array objects
+// get an extension
 var ext = getExtension(gl, 'OES_vertex_array_object')
 if (ext) {
-  // copies constants
-  console.log(ext.VERTEX_ARRAY_BINDING_OES)
-  
-  // and wraps functions
-  var array = vao.createVertexArrayOES()
+  // this will work even when gl is a WebGL 2.0 context
+  var array = ext.createVertexArrayOES()
+  console.log(ext.VERTEX_ARRAY_BINDING_OES)  
 }
+```
+
+## Install
+
+```sh
+npm install gl-extension --save
 ```
 
 ## Usage
 
 [![NPM](https://nodei.co/npm/gl-extension.png)](https://www.npmjs.com/package/gl-extension)
+
+#### `ext = getExtension(gl, name)`
+
+If `gl` is a WebGL 1.0 instance, or if the extension is not part of core in WebGL 2.0, this is the same as calling `gl.getExtension(name)`. 
+
+If `gl` is a WebGL 2.0 instance and `name` is an extension that has been promoted to core, a new wrapper object will be returned mimicing the API and constants of the WebGL 1 extension.
+
+See the [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/) for extension details.
 
 ## See Also
 

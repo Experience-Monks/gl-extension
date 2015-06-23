@@ -16,12 +16,14 @@
     "webgl2-core-extensions": "^1.0.2"
   },
   "devDependencies": {
+    "@mattdesl/smokestack-webgl2": "^3.3.0",
+    "browserify": "^10.2.4",
     "faucet": "0.0.1",
     "get-canvas-context": "^1.0.1",
     "tape": "^4.0.0"
   },
   "scripts": {
-    "test": "node test.js | faucet"
+    "test": "browserify test.js | smokestack --timeout=1500 | faucet"
   },
   "keywords": [
     "webgl2",

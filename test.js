@@ -31,7 +31,7 @@ test('normalizes an extension object so it works in WebGL2', function (t) {
 
   // just a rough check on names to make sure we're getting something decent
   t.equal(obj1.constructor.name, 'WebGLVertexArrayObjectOES', 'gets OES webgl1 VAO')
-  t.equal(obj2.constructor.name, 'WebGLVertexArrayObject', 'gets native webgl2 VAO')
+  t.equal(obj2.constructor.name.replace('OES', ''), 'WebGLVertexArrayObject', 'gets native webgl2 VAO')
 
   // could validate first for stronger check here
   t.equal(ext1.isVertexArrayOES(obj1), false, 'invalidated flag is set')
@@ -41,4 +41,8 @@ test('normalizes an extension object so it works in WebGL2', function (t) {
   t.equal(extension(gl2, 'EXT_frag_depth').constructor.name, 'FragDepth')
 
   t.end()
+
+  setTimeout(function() {
+    window.close()
+  }, 500)
 })
