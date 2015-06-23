@@ -26,6 +26,7 @@ function generate (gl, name) {
     return new (noInterfaces[name])()
   }
 
+  // interface with some constants / functions
   var data = interfaces[name]
   if (!data) {
     throw new Error('could not find data for core extension ' + name)
@@ -54,12 +55,3 @@ function generate (gl, name) {
   }
   return obj
 }
-
-// function wrap (name) {
-//   /*eslint-disable no-new-func*/
-//   return new Function('gl', [
-//     'return function ' + name + '() {',
-
-//     ''
-//   ].join('\n'))
-// }
