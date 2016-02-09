@@ -4,12 +4,29 @@ var interfaces = require('./lib/interfaces')
 var noInterfaces = require('./lib/no-interfaces')
 
 module.exports = getExtension
+module.exports.patch = patch;
+
+function patch (gl) {
+  var glGetExtension = gl.getExtension;
+  gl.getExtension = function (ext) {
+    if (shouldGenerate(gl, ext)) {
+      return generate(gl, ext)
+    } else {
+      return glGetExtension.call(this, ext)
+    }
+  }
+}
+
 function getExtension (gl, ext) {
-  if (isGL2(gl) && promoted.indexOf(ext) >= 0) {
+  if (shouldGenerate(gl, ext)) {
     return generate(gl, ext)
   } else {
     return gl.getExtension(ext)
   }
+}
+
+function shouldGenerate (gl, ext) {
+  return isGL2(gl) && promoted.indexOf(ext) >= 0;
 }
 
 function trimEnd (name) {

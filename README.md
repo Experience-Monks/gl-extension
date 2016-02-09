@@ -38,6 +38,10 @@ If `gl` is a WebGL 2.0 instance and `name` is an extension that has been promote
 
 See the [WebGL Extension Registry](https://www.khronos.org/registry/webgl/extensions/) for extension details.
 
+#### `require('gl-extension').patch(gl)`
+
+Patches the `gl.getExtension` function correctly so that legacy code bases (e.g. ThreeJS) can use WebGL2 without problems.
+
 ## See Also
 
 - [is-webgl2-context](https://www.npmjs.com/package/is-webgl2-context)

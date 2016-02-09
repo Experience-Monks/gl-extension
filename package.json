@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "is-webgl2-context": "^1.0.0",
-    "webgl2-core-extensions": "^1.0.2"
+    "webgl2-core-extensions": "^2.0.0"
   },
   "devDependencies": {
     "@mattdesl/smokestack-webgl2": "^3.3.0",
