@@ -1,6 +1,6 @@
 {
   "name": "gl-extension",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "gets a WebGL extension, normalized to work the same in WebGL 2 contexts",
   "main": "index.js",
   "license": "MIT",
